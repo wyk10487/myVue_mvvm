@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Text</title>
+    <style>
+        .aa {
+            color: red;
+            width: 300px;
+        }
+        .bb {
+            background: yellow;
+        }
+    </style>
+    <!-- <script src="./lib/Vue-2.4.0.js"></script> -->
+</head>
+
+<!-- 在body里，<div>标签后面的换行符也是文档的一部分，属于text类型,nodeName: '#text',data: "↵    ",textContent: "↵    "-->
+<!-- 同样的，注释掉的内容也是文档的一部分，属于comment类型,nodeName:'#comment',data里是注释掉的内容 -->
+<!-- 若要访问元素节点中的内容应该使用textContent属性 -->
+<body>
+    <div id="myVue_app">
+        <p v-text="msg">456456</p>
+        <p v-html="msg">789798</p>
+        <div class="bb" v-class="myClass">123321123321</div>
+        <p>{{ name }}</p>
+        <button v-on:click='show'>提交</button>
+    </div>
+    <script src="./js/myObserver.js"></script>
+    <script src="./js/myWatcher.js"></script>
+    <script src="./js/myCompile.js"></script>
+    <script src="./js/myVue.js"></script>
+    <script>
+        const vm = new myVue({
+            el: '#myVue_app',
+            data: {
+                name: 'wyk',
+                myClass: "aa",
+                msg: "<a href='https://www.baidu.com'>百度</a>"
+            },
+            methods: {
+                show(){
+                    alert(this.name)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
