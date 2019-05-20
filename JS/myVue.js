@@ -26,7 +26,7 @@ myVue.prototype = {
             enumerable: true,  //可枚举
             configurable: false,  //不可修改，此后只能修改write属性为false,不可修改为true
             get() {
-                return me._data[key]
+                return me._data[key]  //有了这一步，每当访问vm实例中data某个数据时，首先会经过这一层代理
             },
             set(newKey) {
                 me._data[key] = newKey

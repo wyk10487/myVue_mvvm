@@ -23,10 +23,9 @@
 <!-- 若要访问元素节点中的内容应该使用textContent属性 -->
 <body>
     <div id="myVue_app">
-        <p v-text="msg">456456</p>
-        <p v-html="msg">789798</p>
         <div class="bb" v-class="myClass">123321123321</div>
         <p>{{ name }}</p>
+        <input v-model="str" type="text">
         <button v-on:click='show'>提交</button>
     </div>
     <script src="./js/myObserver.js"></script>
@@ -37,13 +36,14 @@
         const vm = new myVue({
             el: '#myVue_app',
             data: {
+                str: '初始化的str',
                 name: 'wyk',
                 myClass: "aa",
                 msg: "<a href='https://www.baidu.com'>百度</a>"
             },
             methods: {
                 show(){
-                    alert(this.name)
+                    alert(this.str)
                 }
             },
         })

@@ -1,19 +1,22 @@
 function Observer(val) {
-    this.data = val
+    this.data = val  //把要观察的对象的数据保存至新建实例的data中
     this.walk(val)
 }
 
 Observer.prototype = {
     walk(data) {
         let me = this
-        Object.keys(data).forEach(key => me.convert(key, data[key]))
+        Object.keys(data).forEach(key => me.convert(key, data[key])) //遍历被观察对象中所有的属性，使其内数据都会被劫持
     },
     convert(key, val) {
         this.defineReactive(this.data, key, val)
     },
     defineReactive(data, key, val) {
+        let me = this
         let dep = new Dep()
-        let childObj = observe(val)
+        if(me.isObject(val)){
+            observe(val)
+        }
 
         Object.defineProperty(data, key, {
             enumerable: true,
@@ -29,14 +32,19 @@ Observer.prototype = {
                     return;
                 }
                 val = newVal
-                childObj = observe(newVal)
+                if(me.isObject(val)){
+                    observe(val)
+                }
                 dep.notify() //通知所有的watcher
             }
         })
+    },
+    isObject(val){  //判断是否是真正的object
+        return Object.prototype.toString.call(val) === "[object Object]"  
     }
 }
-
-function observe(val, vm) {
+//每当指明观察某个对象时，新建一个Observer
+function observe(val) {
     if(!val || typeof val !== 'object') return;
     return new Observer(val)
 }
